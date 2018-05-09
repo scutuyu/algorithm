@@ -18,7 +18,7 @@ public class EightQueen {
 
     public static void main( String[] args ){
         // 从第0行开始，一直递归到最后一行
-        mySettleQueen(0);
+        settleQueen(0);
         printChess();
         printIndex();
     }
@@ -56,16 +56,16 @@ public class EightQueen {
         }
     }
 
-    private static boolean mySettleQueen(int r){
+    private static boolean settleQueen(int r){
         if (r == row){ // 为最后一行设置Queen时返回true，因为这行的结果不会影响其他的行
             return true;
         }
         for (int index = 0; index < col; index++){ // 从第一列遍历到最后一列
             // 当前行元素都清零,为回溯做铺垫
             clearRow(r);
-            if (myCheck(r, index)){
+            if (check(r, index)){
                 chess[r][index] = 1;
-                if (mySettleQueen(r + 1)){// 递归,如果返回false则回溯
+                if (settleQueen(r + 1)){// 递归,如果返回false则回溯
                     return true;
                 }
             }
@@ -73,7 +73,7 @@ public class EightQueen {
         return false;
     }
 
-    private static boolean myCheck(int i, int j){
+    private static boolean check(int i, int j){
         int sum = i + j; // 同一条斜线上的元素的索引的和相等
         int sub = i - j; // 或者 同一条斜线上的元素的索引的差相等
         for (int m = sum >= row ? row - 1 : sum; m >= 0 && sum - m < col; m--){
